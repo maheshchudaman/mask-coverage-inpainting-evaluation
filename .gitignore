@@ -1,0 +1,13 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+~$*
+results/*.jsonl
+results/*_summary.json
+render*/
+deliverables/*.docx
+deliverables/*.pdf
+!paper/*.docx
+!paper/*.pdf
+src/build_*.py
