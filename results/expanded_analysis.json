@@ -1,4 +1,168 @@
 {
+  "counterfactual_coverage_mixtures": {
+    "contrasts": {
+      "full_psnr": {
+        "bootstrap_95ci": [
+          3.4810051802207798,
+          3.5131779877066105
+        ],
+        "direction": "small_hole_heavy_minus_large_hole_heavy",
+        "mean_difference": 3.4972450582443213
+      },
+      "full_ssim": {
+        "bootstrap_95ci": [
+          0.16645863490529184,
+          0.1682159098182665
+        ],
+        "direction": "small_hole_heavy_minus_large_hole_heavy",
+        "mean_difference": 0.1673584913192317
+      },
+      "hole_mae": {
+        "bootstrap_95ci": [
+          -0.0008034100841405305,
+          -3.405422377411409e-05
+        ],
+        "direction": "small_hole_heavy_minus_large_hole_heavy",
+        "mean_difference": -0.0004126328046292198
+      },
+      "hole_psnr": {
+        "bootstrap_95ci": [
+          0.03500677715533131,
+          0.0671784192321268
+        ],
+        "direction": "small_hole_heavy_minus_large_hole_heavy",
+        "mean_difference": 0.05096932163805375
+      }
+    },
+    "coverage_order": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "summary": {
+      "balanced": {
+        "full_psnr": {
+          "bootstrap_95ci": [
+            17.923722157893618,
+            18.05615987471911
+          ],
+          "mean": 17.98906358484627
+        },
+        "full_ssim": {
+          "bootstrap_95ci": [
+            0.7274772347029158,
+            0.729779833735677
+          ],
+          "mean": 0.7286402655929327
+        },
+        "hole_mae": {
+          "bootstrap_95ci": [
+            0.18511900620641558,
+            0.18825973104242988
+          ],
+          "mean": 0.18674882946703564
+        },
+        "hole_psnr": {
+          "bootstrap_95ci": [
+            12.075152445670456,
+            12.215763643513377
+          ],
+          "mean": 12.147461417752439
+        }
+      },
+      "large_hole_heavy": {
+        "full_psnr": {
+          "bootstrap_95ci": [
+            16.337271966676386,
+            16.47675567096739
+          ],
+          "mean": 16.40795950942023
+        },
+        "full_ssim": {
+          "bootstrap_95ci": [
+            0.6444591563401476,
+            0.6476042014530429
+          ],
+          "mean": 0.6460383381023538
+        },
+        "hole_mae": {
+          "bootstrap_95ci": [
+            0.18536026601084887,
+            0.18856158722830174
+          ],
+          "mean": 0.18692686760577812
+        },
+        "hole_psnr": {
+          "bootstrap_95ci": [
+            12.050765764049173,
+            12.193748233950192
+          ],
+          "mean": 12.123641391598106
+        }
+      },
+      "small_hole_heavy": {
+        "full_psnr": {
+          "bootstrap_95ci": [
+            19.835623800662937,
+            19.974343431571974
+          ],
+          "mean": 19.905204567664555
+        },
+        "full_ssim": {
+          "bootstrap_95ci": [
+            0.8127009603838472,
+            0.8141084821010353
+          ],
+          "mean": 0.8133968294215854
+        },
+        "hole_mae": {
+          "bootstrap_95ci": [
+            0.18486667304336857,
+            0.18805406626770818
+          ],
+          "mean": 0.18651423480114893
+        },
+        "hole_psnr": {
+          "bootstrap_95ci": [
+            12.10752677140523,
+            12.244800606566939
+          ],
+          "mean": 12.174610713236161
+        }
+      }
+    },
+    "weights": {
+      "balanced": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.2
+      ],
+      "large_hole_heavy": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.5
+      ],
+      "small_hole_heavy": [
+        0.5,
+        0.2,
+        0.15,
+        0.1,
+        0.05
+      ]
+    }
+  },
+  "descriptive_within_image_coverage_r2": {
+    "full_psnr": 0.9734443493135108,
+    "full_ssim": 0.9803095124868494,
+    "hole_mae": 0.0012404432802237898,
+    "hole_psnr": 0.008032530149208095
+  },
   "design": {
     "bootstrap_repetitions": 3000,
     "bootstrap_unit": "image",
