@@ -30,7 +30,12 @@ Mean full-image PSNR changed from 22.204 dB at 10% coverage to 15.114 dB at
 50%, while mean hole PSNR changed from 12.204 to 12.104 dB. In matched
 10%-versus-50% comparisons, full-image and hole PSNR preferred opposite
 coverage conditions in 44.23% of pairs (image-cluster bootstrap 95% CI:
-43.39%–45.03%). These probes are measurement instruments, not baselines.
+43.39%–45.03%). A counterfactual audit then held every output fixed and changed
+only the coverage-stratum weights. Moving from a small-hole-heavy to a
+large-hole-heavy mixture shifted pooled full-image PSNR by 3.497 dB (95% CI:
+3.481–3.513), while hole PSNR shifted by only 0.051 dB (95% CI: 0.035–0.067).
+Coverage explained 97.3% of the within-image variation in full-image PSNR but
+only 0.8% in hole PSNR. These probes are measurement instruments, not baselines.
 
 ## Repository map
 
@@ -38,7 +43,7 @@ coverage conditions in 44.23% of pairs (image-cluster bootstrap 95% CI:
 configs/study.json          Resolved experimental configuration
 src/run_study.py            Deterministic mask and probe generation
 src/analyze_paired.py       Primary clustered analysis
-src/expanded_analysis.py    Subgroup and ranking-disagreement analyses
+src/expanded_analysis.py    Subgroup, ranking and mixture-shift analyses
 src/make_figures.py         Primary figures and compact CSV table
 src/make_qualitative.py     Controlled-probe illustration
 src/merge_shards.py         Validated shard merger
