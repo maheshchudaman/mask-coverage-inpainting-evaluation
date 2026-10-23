@@ -25,6 +25,7 @@ OUTPUT = Path(args.output)
 FIGURE_DIR = Path(args.figure_dir)
 FIGURE = FIGURE_DIR / 'subgroup_sensitivity.png'
 RANKING_FIGURE = FIGURE_DIR / 'ranking_disagreement.png'
+AGGREGATION_FIGURE = FIGURE_DIR / 'aggregation_shift.png'
 SEED = args.seed
 BOOTSTRAP = args.bootstrap
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -119,6 +120,81 @@ for family_scope in ['overall'] + families:
         ranking['by_family'][family_scope] = result
 
 
+# Counterfactual aggregation audit. The image outputs are held fixed; only the
+# prevalence assigned to each coverage stratum changes. This directly
+# quantifies how an undisclosed mask-coverage distribution can alter a pooled
+# score without any change to the completion procedure.
+cell_values = defaultdict(lambda: defaultdict(list))
+for r in records:
+    key = (r['image_id'], float(r['coverage_target']))
+    for metric in ['full_mse', 'hole_mse', 'full_ssim', 'hole_mae']:
+        cell_values[key][metric].append(float(r[metric]))
+
+cell_means = {}
+for key, metrics in cell_values.items():
+    full_mse = float(np.mean(metrics['full_mse']))
+    hole_mse = float(np.mean(metrics['hole_mse']))
+    cell_means[key] = {
+        'full_psnr': float(-10 * math.log10(full_mse)),
+        'hole_psnr': float(-10 * math.log10(hole_mse)),
+        'full_ssim': float(np.mean(metrics['full_ssim'])),
+        'hole_mae': float(np.mean(metrics['hole_mae'])),
+    }
+mixture_weights = {
+    'small_hole_heavy': [0.50, 0.20, 0.15, 0.10, 0.05],
+    'balanced': [0.20, 0.20, 0.20, 0.20, 0.20],
+    'large_hole_heavy': [0.05, 0.10, 0.15, 0.20, 0.50],
+}
+aggregation_shift = {'coverage_order': coverages, 'weights': mixture_weights, 'summary': {}, 'contrasts': {}}
+for mixture, weights in mixture_weights.items():
+    aggregation_shift['summary'][mixture] = {}
+    for metric in ['full_psnr', 'hole_psnr', 'full_ssim', 'hole_mae']:
+        per_image = [
+            float(sum(w * cell_means[(image, coverage)][metric] for w, coverage in zip(weights, coverages)))
+            for image in images
+        ]
+        salt += 1
+        aggregation_shift['summary'][mixture][metric] = {
+            'mean': float(np.mean(per_image)),
+            'bootstrap_95ci': bootstrap_ci(per_image, salt),
+        }
+
+for metric in ['full_psnr', 'hole_psnr', 'full_ssim', 'hole_mae']:
+    small = np.asarray([
+        sum(w * cell_means[(image, coverage)][metric]
+            for w, coverage in zip(mixture_weights['small_hole_heavy'], coverages))
+        for image in images
+    ])
+    large = np.asarray([
+        sum(w * cell_means[(image, coverage)][metric]
+            for w, coverage in zip(mixture_weights['large_hole_heavy'], coverages))
+        for image in images
+    ])
+    differences = small - large
+    salt += 1
+    aggregation_shift['contrasts'][metric] = {
+        'direction': 'small_hole_heavy_minus_large_hole_heavy',
+        'mean_difference': float(np.mean(differences)),
+        'bootstrap_95ci': bootstrap_ci(differences, salt),
+    }
+
+
+# Descriptive repeated-measures effect size. After removing each image's mean,
+# this is the fraction of within-image sum of squares captured by the common
+# coverage trend. It is an effect-size summary, not a causal attribution.
+within_image_coverage_r2 = {}
+for metric in ['full_psnr', 'hole_psnr', 'full_ssim', 'hole_mae']:
+    matrix = np.asarray([
+        [cell_means[(image, coverage)][metric] for coverage in coverages]
+        for image in images
+    ], dtype=float)
+    image_centered = matrix - matrix.mean(axis=1, keepdims=True)
+    coverage_effect = matrix.mean(axis=0, keepdims=True) - matrix.mean()
+    ss_total = float(np.sum(image_centered ** 2))
+    ss_coverage = float(len(images) * np.sum(coverage_effect ** 2))
+    within_image_coverage_r2[metric] = ss_coverage / ss_total if ss_total else float('nan')
+
+
 result = {
     'design': {
         'images': len(images),
@@ -128,6 +204,8 @@ result = {
     },
     'subgroup_summary': summary,
     'ranking_disagreement_10_vs_50': ranking,
+    'counterfactual_coverage_mixtures': aggregation_shift,
+    'descriptive_within_image_coverage_r2': within_image_coverage_r2,
 }
 OUTPUT.write_text(json.dumps(result, indent=2, sort_keys=True), encoding='utf-8')
 
@@ -174,6 +252,22 @@ ax.grid(axis='y', alpha=0.25)
 for bar, value in zip(bars, vals):
     ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + max(hi) + 0.3, f'{value:.1f}%', ha='center', va='bottom', fontsize=9)
 fig.savefig(RANKING_FIGURE, dpi=300, bbox_inches='tight')
+plt.close(fig)
+
+
+metric_labels = [('full_psnr', 'Full PSNR (dB)'), ('hole_psnr', 'Hole PSNR (dB)'),
+                 ('full_ssim', 'Full SSIM'), ('hole_mae', 'Hole MAE')]
+mixture_order = ['small_hole_heavy', 'balanced', 'large_hole_heavy']
+mixture_labels = ['Small-hole heavy', 'Balanced', 'Large-hole heavy']
+fig, axes = plt.subplots(1, 4, figsize=(10.8, 3.2), constrained_layout=True)
+for ax, (metric, label) in zip(axes, metric_labels):
+    values = [aggregation_shift['summary'][m][metric]['mean'] for m in mixture_order]
+    ax.bar(range(3), values, color=['#5b9bd5', '#a5a5a5', '#ed7d31'])
+    ax.set_xticks(range(3), ['Small', 'Balanced', 'Large'], rotation=20)
+    ax.set_title(label)
+    ax.grid(axis='y', alpha=0.25)
+fig.suptitle('Same outputs, different coverage prevalence', fontsize=11)
+fig.savefig(AGGREGATION_FIGURE, dpi=300, bbox_inches='tight')
 plt.close(fig)
 
 print(json.dumps({'ranking_disagreement': ranking, 'output': str(OUTPUT)}, indent=2))
