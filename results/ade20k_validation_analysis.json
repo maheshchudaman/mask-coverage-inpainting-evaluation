@@ -1,0 +1,346 @@
+{
+  "descriptive_spearman_on_image_averaged_cells": {
+    "full_mae": 0.9229860373840103,
+    "full_psnr": -0.8289363840508588,
+    "full_ssim": -0.9638915120080056,
+    "hole_edge_mae": -0.045321292274093365,
+    "hole_mae": 0.008956338835191535,
+    "hole_psnr": -0.020585119982916584
+  },
+  "design": {
+    "bootstrap_repetitions": 10000,
+    "bootstrap_unit": "image",
+    "conditions_per_image": 80,
+    "coverage_levels": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "images": 2000,
+    "raw_records": 160000
+  },
+  "interpretation_boundary": "Controlled completions are measurement probes, not inpainting baselines. Inference is clustered by image and supports claims about metric behaviour only.",
+  "invariants": {
+    "maximum_full_mae_identity_residual": 4.7240064304787666e-08,
+    "maximum_full_mse_identity_residual": 2.9802322387695312e-08,
+    "maximum_observed_pixel_error": 0.0,
+    "maximum_psnr_gap_identity_residual_db": 1.2502555648552516e-06
+  },
+  "mean_by_coverage": {
+    "0.10": {
+      "full_mae": {
+        "image_sd": 0.003922479198888593,
+        "mean": 0.01862544456660055,
+        "mean_bootstrap_95ci": [
+          0.018453502008557762,
+          0.01879713789138685
+        ]
+      },
+      "full_psnr": {
+        "image_sd": 1.6696701010080273,
+        "mean": 22.204164533258016,
+        "mean_bootstrap_95ci": [
+          22.130945373006362,
+          22.27515350763846
+        ]
+      },
+      "full_ssim": {
+        "image_sd": 0.011427175545551694,
+        "mean": 0.9006878018788993,
+        "mean_bootstrap_95ci": [
+          0.9001800592896063,
+          0.901191109574167
+        ]
+      },
+      "hole_edge_mae": {
+        "image_sd": 0.09265222497800323,
+        "mean": 0.36246678703598445,
+        "mean_bootstrap_95ci": [
+          0.358529816586912,
+          0.36657525548353426
+        ]
+      },
+      "hole_mae": {
+        "image_sd": 0.039222398000211475,
+        "mean": 0.18624307832763498,
+        "mean_bootstrap_95ci": [
+          0.1845237576504719,
+          0.18795990673336993
+        ]
+      },
+      "hole_psnr": {
+        "image_sd": 1.6696701032329075,
+        "mean": 12.20442960007971,
+        "mean_bootstrap_95ci": [
+          12.131210441685306,
+          12.275418573509688
+        ]
+      }
+    },
+    "0.20": {
+      "full_mae": {
+        "image_sd": 0.00761657605820302,
+        "mean": 0.037327720154828964,
+        "mean_bootstrap_95ci": [
+          0.03698826141596783,
+          0.037668587064815615
+        ]
+      },
+      "full_psnr": {
+        "image_sd": 1.6280590487859836,
+        "mean": 19.157126256745467,
+        "mean_bootstrap_95ci": [
+          19.08804893778691,
+          19.228820296844603
+        ]
+      },
+      "full_ssim": {
+        "image_sd": 0.01937729313906851,
+        "mean": 0.8080582677712664,
+        "mean_bootstrap_95ci": [
+          0.8072356051360023,
+          0.808911330530094
+        ]
+      },
+      "hole_edge_mae": {
+        "image_sd": 0.0919655440153603,
+        "mean": 0.3602997841847973,
+        "mean_bootstrap_95ci": [
+          0.3563409943541228,
+          0.3643653973363431
+        ]
+      },
+      "hole_mae": {
+        "image_sd": 0.038083461354253945,
+        "mean": 0.186641448701419,
+        "mean_bootstrap_95ci": [
+          0.18494412904970994,
+          0.18834580926050767
+        ]
+      },
+      "hole_psnr": {
+        "image_sd": 1.6280590484116888,
+        "mean": 12.167359942847387,
+        "mean_bootstrap_95ci": [
+          12.098282620943912,
+          12.239053981731294
+        ]
+      }
+    },
+    "0.30": {
+      "full_mae": {
+        "image_sd": 0.011229135252843067,
+        "mean": 0.055979738957614246,
+        "mean_bootstrap_95ci": [
+          0.05548478256454778,
+          0.05647661500844271
+        ]
+      },
+      "full_psnr": {
+        "image_sd": 1.5893689610707278,
+        "mean": 17.379996991276833,
+        "mean_bootstrap_95ci": [
+          17.311514267782048,
+          17.450811518682436
+        ]
+      },
+      "full_ssim": {
+        "image_sd": 0.027828308313468497,
+        "mean": 0.7251262565879151,
+        "mean_bootstrap_95ci": [
+          0.7239154189049033,
+          0.7263769960416947
+        ]
+      },
+      "hole_edge_mae": {
+        "image_sd": 0.09284791326787574,
+        "mean": 0.3573337986098554,
+        "mean_bootstrap_95ci": [
+          0.3532768656303062,
+          0.3614671405581629
+        ]
+      },
+      "hole_mae": {
+        "image_sd": 0.037430070213793895,
+        "mean": 0.18659723182656307,
+        "mean_bootstrap_95ci": [
+          0.18494739391552248,
+          0.1882534684774634
+        ]
+      },
+      "hole_psnr": {
+        "image_sd": 1.5893689626313177,
+        "mean": 12.151253713609137,
+        "mean_bootstrap_95ci": [
+          12.082770990295076,
+          12.222068241189682
+        ]
+      }
+    },
+    "0.40": {
+      "full_mae": {
+        "image_sd": 0.01493922030837638,
+        "mean": 0.07489247084223462,
+        "mean_bootstrap_95ci": [
+          0.07423246406170501,
+          0.07554620004764988
+        ]
+      },
+      "full_psnr": {
+        "image_sd": 1.5884256599562983,
+        "mean": 16.089919876947512,
+        "mean_bootstrap_95ci": [
+          16.02110861081821,
+          16.159768656411917
+        ]
+      },
+      "full_ssim": {
+        "image_sd": 0.0364512681923864,
+        "mean": 0.6441177270673215,
+        "mean_bootstrap_95ci": [
+          0.6425212848671012,
+          0.645721921247826
+        ]
+      },
+      "hole_edge_mae": {
+        "image_sd": 0.09219635117583741,
+        "mean": 0.35504970134490577,
+        "mean_bootstrap_95ci": [
+          0.35099998981944336,
+          0.35904799302188367
+        ]
+      },
+      "hole_mae": {
+        "image_sd": 0.03734862055142319,
+        "mean": 0.18723403398170194,
+        "mean_bootstrap_95ci": [
+          0.1855839919031561,
+          0.18886838175096582
+        ]
+      },
+      "hole_psnr": {
+        "image_sd": 1.5884256594355586,
+        "mean": 12.110453519483213,
+        "mean_bootstrap_95ci": [
+          12.041642255400049,
+          12.180302296170916
+        ]
+      }
+    },
+    "0.50": {
+      "full_mae": {
+        "image_sd": 0.018480091508273445,
+        "mean": 0.09351417724042585,
+        "mean_bootstrap_95ci": [
+          0.09269845935503235,
+          0.09431712782208251
+        ]
+      },
+      "full_psnr": {
+        "image_sd": 1.5723190328856582,
+        "mean": 15.114110266003514,
+        "mean_bootstrap_95ci": [
+          15.04470736673237,
+          15.18215111677556
+        ]
+      },
+      "full_ssim": {
+        "image_sd": 0.04548975164501256,
+        "mean": 0.5652112746592611,
+        "mean_bootstrap_95ci": [
+          0.5631792204175494,
+          0.5671831971044885
+        ]
+      },
+      "hole_edge_mae": {
+        "image_sd": 0.09080616860828376,
+        "mean": 0.35143464970176863,
+        "mean_bootstrap_95ci": [
+          0.3475636974758032,
+          0.3554815193110025
+        ]
+      },
+      "hole_mae": {
+        "image_sd": 0.0369601830775853,
+        "mean": 0.18702835449785926,
+        "mean_bootstrap_95ci": [
+          0.18539691869370126,
+          0.18863425570674117
+        ]
+      },
+      "hole_psnr": {
+        "image_sd": 1.5723190351364198,
+        "mean": 12.103810312742738,
+        "mean_bootstrap_95ci": [
+          12.034407410909228,
+          12.17185116446494
+        ]
+      }
+    }
+  },
+  "paired_high_minus_low": {
+    "full_mae": {
+      "bootstrap_95ci": [
+        0.07422419704323438,
+        0.07555899881659178
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.015147871701480874,
+      "mean_difference": 0.0748887326738253
+    },
+    "full_psnr": {
+      "bootstrap_95ci": [
+        -7.1242424161475215,
+        -7.055124662504645
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.7850527545469146,
+      "mean_difference": -7.0900542672545015
+    },
+    "full_ssim": {
+      "bootstrap_95ci": [
+        -0.33722097970296167,
+        -0.33370239078779707
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.040299555287603914,
+      "mean_difference": -0.3354765272196382
+    },
+    "hole_edge_mae": {
+      "bootstrap_95ci": [
+        -0.01277695542354195,
+        -0.009248069037534334
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.04017045546546716,
+      "mean_difference": -0.011032137334215803
+    },
+    "hole_mae": {
+      "bootstrap_95ci": [
+        -2.7120026255442957e-05,
+        0.0016011956303193756
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.01886199960653025,
+      "mean_difference": 0.0007852761702242788
+    },
+    "hole_psnr": {
+      "bootstrap_95ci": [
+        -0.13480743425555186,
+        -0.0656896831270084
+      ],
+      "direction": "high_coverage_minus_low_coverage",
+      "image_sd": 0.785052758623396,
+      "mean_difference": -0.10061928733696962
+    }
+  },
+  "psnr_inflation_db_by_coverage": {
+    "0.10": 10.0,
+    "0.20": 6.9897000433601875,
+    "0.30": 5.228787452803376,
+    "0.40": 3.979400086720376,
+    "0.50": 3.010299956639812
+  }
+}
