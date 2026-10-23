@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite the accompanying paper and this repository."
+title: "Mask Coverage as a Confounding Factor in Full-Image Evaluation of Image Inpainting: Reproducibility Package"
+type: software
+authors:
+  - family-names: Patil
+    given-names: Mahesh
+  - family-names: Tiwari
+    given-names: Vikas
+version: 1.0.0
+date-released: 2026-10-23
+repository-code: "https://github.com/maheshchudaman/mask-coverage-inpainting-evaluation"
+url: "https://github.com/maheshchudaman/mask-coverage-inpainting-evaluation"
+license: MIT
+keywords:
+  - image inpainting
+  - evaluation protocol
+  - mask coverage
+  - PSNR
+  - SSIM
+  - reproducibility
