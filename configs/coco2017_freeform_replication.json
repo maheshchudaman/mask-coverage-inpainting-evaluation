@@ -1,0 +1,11 @@
+{
+  "dataset_id": "COCO_val2017",
+  "image_size": 256,
+  "seed": 20261022,
+  "sample_size": 250,
+  "coverage_targets": [0.10, 0.20, 0.30, 0.40, 0.50],
+  "mask_families": ["freeform"],
+  "coverage_tolerance": 0.015,
+  "save_example_images": 5,
+  "save_example_coverages": [0.10, 0.50]
+}

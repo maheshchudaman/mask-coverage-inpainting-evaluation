@@ -59,6 +59,26 @@ and realised coverage, and mask SHA-256 digest. The deterministic generator can
 recreate the masks from a licensed local ADE20K copy. The MI-GAN records are
 published as `results/learned/migan_mac_250.jsonl.gz`.
 
+## Independent COCO replication
+
+The second-dataset experiment uses 250 deterministically selected COCO
+val2017 images, dataset-independent free-form masks, five coverage levels and
+the same LaMa and MI-GAN checkpoints. It contains 1,250 conditions per model.
+All 1,250 source-image and mask hashes match across models, observed pixels are
+preserved exactly and the maximum MSE-identity residual is below `2.8e-9`.
+
+From 10% to 50% coverage, full-image PSNR decreased by 9.758 dB for LaMa and
+11.204 dB for MI-GAN on COCO. The corresponding ADE20K free-form-mask decreases
+were 9.644 and 11.249 dB. The COCO-minus-ADE20K differences were -0.114 dB
+(95% CI: -0.653 to 0.413) for LaMa and 0.044 dB (95% CI: -0.710 to 0.804) for
+MI-GAN. The model-by-coverage-by-dataset interaction was 0.160 dB (95% CI:
+-0.256 to 0.583), providing no detected evidence that the coverage response
+changed across these datasets.
+
+COCO images are not redistributed. The repository contains only selected image
+identifiers and hashes, deterministic mask hashes, compressed metric records,
+analysis code and derived results.
+
 ## Repository map
 
 ```text
@@ -71,6 +91,8 @@ src/make_qualitative.py     Controlled-probe illustration
 src/run_migan_study.py      MI-GAN matched inference runner
 src/analyze_model_replication.py  LaMa--MI-GAN clustered analysis
 src/make_lama_migan_qualitative.py  Matched qualitative figure
+src/run_coco_replication.py  Resumable COCO LaMa or MI-GAN runner
+src/analyze_cross_dataset_replication.py  ADE20K--COCO clustered analysis
 src/merge_shards.py         Validated shard merger
 src/self_check.py           Dataset-free mathematical/determinism checks
 results/                    Compact derived results (no ADE20K images)
