@@ -68,3 +68,28 @@ against `MANIFEST.sha256` with `shasum -a 256 -c MANIFEST.sha256`.
 
 Small last-decimal differences may occur across platforms or dependency builds;
 the analytical identities should remain within the recorded numerical tolerance.
+
+## Learned-model external validation
+
+The LaMa extension uses 250 deterministically selected validation images, two
+mask families and five coverage targets, giving 2,500 records. The official
+OpenCV Zoo checkpoint is not redistributed. Download instructions, the expected
+checkpoint SHA-256, the complete run command and the resumption procedure are in
+[`docs/MAC_EXPERIMENT.md`](docs/MAC_EXPERIMENT.md).
+
+The published evidence is located in `results/learned/`. Regenerate its
+clustered analysis, CSV table and figure with:
+
+```bash
+python -m pip install -r requirements-learned-mac.txt
+python src/analyze_learned_model.py \
+  --input results/learned/lama_mac_250.jsonl \
+  --output-json results/learned/lama_mac_250_analysis.json \
+  --output-csv results/learned/lama_mac_250_summary.csv \
+  --figure figures/lama_learned_metric_sensitivity.png \
+  --bootstrap 3000 --seed 20261022
+```
+
+Expected checks include 250 complete image clusters, 2,500 records, exact
+observed-pixel preservation, a maximum MSE-identity residual below
+`6e-9`, and an 11.6% full-versus-hole PSNR preference-disagreement rate.

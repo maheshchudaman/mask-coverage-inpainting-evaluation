@@ -1,0 +1,4 @@
+# Install after the base requirements.txt environment is active.
+# ONNX Runtime executes the quantized LaMa model on Apple Silicon CPU without
+# the memory overhead of a full PyTorch plus CUDA-oriented model stack.
+onnxruntime>=1.18,<2
