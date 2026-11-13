@@ -15,9 +15,9 @@ PSNR_full = PSNR_hole - 10 log10(h)
 ```
 
 The study tests the practical size of this support effect with a balanced,
-deterministic experiment and a prespecified LaMa external validation. The
-learned-model experiment tests whether the support effect remains visible in
-outputs from a trained model; it is not an architectural comparison.
+deterministic experiment and matched replications using public LaMa and MI-GAN
+checkpoints. The learned-model experiments test metric sensitivity; they do
+**not** establish architectural superiority.
 
 ## Main result
 
@@ -39,41 +39,41 @@ large-hole-heavy mixture shifted pooled full-image PSNR by 3.497 dB (95% CI:
 Coverage explained 97.3% of the within-image variation in full-image PSNR but
 only 0.8% in hole PSNR. These probes are measurement instruments, not baselines.
 
-## Learned-model external validation
+## Public pretrained-model replication
 
-The public LaMa evidence contains 2,500 condition records:
+The replication uses the same 250 ADE20K validation images, free-form and
+semantic masks, and 10%--50% coverage targets for both models (2,500 records per
+model). All source-image and mask hashes match across models. From 10% to 50%
+coverage, full-image PSNR decreased by 10.785 dB for LaMa and 11.935 dB for
+MI-GAN; hole-only PSNR decreased by 3.796 and 4.946 dB. The MI-GAN decline was
+1.150 dB larger than the LaMa decline (image-cluster bootstrap 95% CI:
+0.847--1.461 dB) under this fixed protocol.
 
-- 250 deterministically selected ADE20K validation images
-- 2 mask families: free-form and semantic
-- 5 coverage targets: 10%, 20%, 30%, 40% and 50%
-- The official OpenCV Zoo `inpainting_lama_2025jan.onnx` checkpoint
+The evaluated MI-GAN ONNX pipeline is linked by the authors' official
+repository and has SHA-256 digest
+`6f1f3530a1a2324b19752018ce756088b07973cda8d7d890034ace5c8a48c40b`.
+The model file is not redistributed here.
 
-Full-image PSNR decreased from 35.361 dB at 10% coverage to 24.576 dB at
-50%, while hole PSNR decreased from 25.362 to 21.566 dB. Full-image and
-hole-only PSNR preferred opposite coverage conditions for 11.6% of the 250
-image-level comparisons. The raw records, analysis output, summary table,
-configuration, scripts, figure and execution notes are included below.
-
-The checkpoint is not redistributed. Its verified SHA-256 is
-`7df918ac3921d3daf0aae1d219776cf0dc4e4935f035af81841b40adcf74fdf2`.
+Each per-condition record contains the image identifier, mask family, target
+and realised coverage, and mask SHA-256 digest. The deterministic generator can
+recreate the masks from a licensed local ADE20K copy. The MI-GAN records are
+published as `results/learned/migan_mac_250.jsonl.gz`.
 
 ## Repository map
 
 ```text
 configs/study.json          Resolved experimental configuration
-configs/learned_models_mac.json  Resolved LaMa validation configuration
-docs/MAC_EXPERIMENT.md      LaMa download, execution and resumption protocol
 src/run_study.py            Deterministic mask and probe generation
 src/analyze_paired.py       Primary clustered analysis
 src/expanded_analysis.py    Subgroup, ranking and mixture-shift analyses
-src/run_learned_model_study.py  Resumable LaMa experiment runner
-src/analyze_learned_model.py    Image-clustered LaMa analysis
 src/make_figures.py         Primary figures and compact CSV table
 src/make_qualitative.py     Controlled-probe illustration
+src/run_migan_study.py      MI-GAN matched inference runner
+src/analyze_model_replication.py  LaMa--MI-GAN clustered analysis
+src/make_lama_migan_qualitative.py  Matched qualitative figure
 src/merge_shards.py         Validated shard merger
 src/self_check.py           Dataset-free mathematical/determinism checks
 results/                    Compact derived results (no ADE20K images)
-results/learned/            LaMa raw records and derived analysis
 figures/                    Publication figures
 paper/                      Journal-ready manuscript
 ```
@@ -118,23 +118,13 @@ python src/make_figures.py \
   --table results/coverage_summary_table.csv
 ```
 
+The MI-GAN replication configuration is `configs/migan_mac.json`. The compact
+outputs are in `results/learned/`, and the matched quantitative and qualitative
+figures are in `figures/`.
+
 For parallel runs, use `--start-image` and `--end-image`, then combine outputs
 with `src/merge_shards.py`. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the
 complete protocol and verification steps.
-
-For the learned-model validation, follow
-[`docs/MAC_EXPERIMENT.md`](docs/MAC_EXPERIMENT.md). To regenerate the published
-analysis and figure from the included 2,500 records:
-
-```bash
-python -m pip install -r requirements-learned-mac.txt
-python src/analyze_learned_model.py \
-  --input results/learned/lama_mac_250.jsonl \
-  --output-json results/learned/lama_mac_250_analysis.json \
-  --output-csv results/learned/lama_mac_250_summary.csv \
-  --figure figures/lama_learned_metric_sensitivity.png \
-  --bootstrap 3000 --seed 20261022
-```
 
 ## Interpretation boundary
 
@@ -144,9 +134,7 @@ superiority, state-of-the-art reconstruction or deployment efficiency.
 
 ## Data, citation and license
 
-ADE20K images and the LaMa checkpoint are not redistributed. The LaMa
-per-condition metric records contain image and mask hashes but no source or
-generated images. Configuration, code, raw metric records, derived statistics
-and figures are included. Cite the software using
+ADE20K images are not redistributed. Only configuration, code, compact derived
+statistics and figures are included. Cite the software using
 [`CITATION.cff`](CITATION.cff). Code is released under the MIT License; the
 manuscript and figures remain copyright © 2026 Mahesh Patil and Vikas Tiwari.

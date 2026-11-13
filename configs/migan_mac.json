@@ -1,0 +1,21 @@
+{
+  "image_size": 256,
+  "seed": 20261022,
+  "sample_size": 250,
+  "coverage_targets": [0.10, 0.20, 0.30, 0.40, 0.50],
+  "mask_families": ["freeform", "segmentation"],
+  "coverage_tolerance": 0.015,
+  "cooldown_every": 0,
+  "cooldown_seconds": 0,
+  "save_example_images": 5,
+  "save_example_coverages": [0.10, 0.50],
+  "model": {
+    "id": "migan_512_places2_onnx_pipeline_v2",
+    "name": "MI-GAN 512 Places2",
+    "implementation": "Author-linked ONNX pipeline v2",
+    "file": "models/migan_pipeline_v2.onnx",
+    "sha256": "6f1f3530a1a2324b19752018ce756088b07973cda8d7d890034ace5c8a48c40b",
+    "source": "https://huggingface.co/andraniksargsyan/migan/resolve/main/migan_pipeline_v2.onnx",
+    "official_repository": "https://github.com/Picsart-AI-Research/MI-GAN"
+  }
+}
