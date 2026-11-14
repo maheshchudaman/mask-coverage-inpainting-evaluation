@@ -59,6 +59,24 @@ and realised coverage, and mask SHA-256 digest. The deterministic generator can
 recreate the masks from a licensed local ADE20K copy. The MI-GAN records are
 published as `results/learned/migan_mac_250.jsonl.gz`.
 
+The exact 2,500-mask bank used by both ADE20K public-model runs is published as
+directly readable NPZ shards in
+`results/learned/frozen_masks_250x2x5/`. The manifest records every shard hash
+and the source-bank SHA-256
+`1bdafff1901efb45997d53c5a4855f8b487508feb6f2ad1803e19cf44b8c370d`.
+The files contain packed binary masks, identifiers, coverages and hashes, but
+no ADE20K photographs. `FROZEN_MASKS_NOTICE.md` records the attribution and
+BSD 3-Clause terms applicable to the ADE20K annotations from which the
+semantic masks were derived.
+
+## Classical reference baselines
+
+OpenCV Telea and Navier--Stokes inpainting were evaluated with radius 3 on the
+same 250 ADE20K and 250 COCO image selections and the same free-form masks.
+These inference-only reference methods provide lower bounds; they are not used
+to claim architectural superiority. Records, analysis code and the clustered
+bootstrap summary are in `results/learned/` and `src/`.
+
 ## Independent COCO replication
 
 The second-dataset experiment uses 250 deterministically selected COCO
@@ -93,6 +111,8 @@ src/analyze_model_replication.py  LaMa--MI-GAN clustered analysis
 src/make_lama_migan_qualitative.py  Matched qualitative figure
 src/run_coco_replication.py  Resumable COCO LaMa or MI-GAN runner
 src/analyze_cross_dataset_replication.py  ADE20K--COCO clustered analysis
+src/run_classical_baselines.py  OpenCV Telea and Navier--Stokes runner
+src/analyze_classical_baselines.py  Matched classical-baseline analysis
 src/merge_shards.py         Validated shard merger
 src/self_check.py           Dataset-free mathematical/determinism checks
 results/                    Compact derived results (no ADE20K images)

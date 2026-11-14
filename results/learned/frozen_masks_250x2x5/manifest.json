@@ -1,0 +1,98 @@
+{
+  "format": "packed binary masks in NumPy NPZ files",
+  "source_archive": "frozen_masks_250x2x5.npz",
+  "source_archive_sha256": "1bdafff1901efb45997d53c5a4855f8b487508feb6f2ad1803e19cf44b8c370d",
+  "records": 2500,
+  "image_size": 256,
+  "bitorder": "big",
+  "shards": [
+    {
+      "file": "freeform_10.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.1,
+      "records": 250,
+      "bytes": 383959,
+      "sha256": "89cc683b9c4d911675e0b987b00c66640f4d3912400fba97614e75383f8cbfef"
+    },
+    {
+      "file": "freeform_20.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.2,
+      "records": 250,
+      "bytes": 580484,
+      "sha256": "558238e9478a08fd689a5e289de707d3b4de1fd4579bd8f5292ed42faf87591e"
+    },
+    {
+      "file": "freeform_30.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.3,
+      "records": 250,
+      "bytes": 691087,
+      "sha256": "b0ed608a0e719e621824e97dcd703df348af42d8dc2dea298becb5fef747a433"
+    },
+    {
+      "file": "freeform_40.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.4,
+      "records": 250,
+      "bytes": 773239,
+      "sha256": "74e36322fcb616ff638e4b598e870f8775a01d1a96508768057d601891c503a0"
+    },
+    {
+      "file": "freeform_50_a.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.5,
+      "records": 125,
+      "bytes": 418103,
+      "sha256": "663f1d29ccba70e219a8b7845c734ee36c3619f2899eafed30727234c4202369"
+    },
+    {
+      "file": "freeform_50_b.npz",
+      "mask_family": "freeform",
+      "coverage_target": 0.5,
+      "records": 125,
+      "bytes": 411422,
+      "sha256": "77cc10eec1accf304aa7e443751bef90250c7072bf55265acdaf37615e5e4da1"
+    },
+    {
+      "file": "segmentation_10.npz",
+      "mask_family": "segmentation",
+      "coverage_target": 0.1,
+      "records": 250,
+      "bytes": 184142,
+      "sha256": "6002879673d45f3a1d2c00db9ba0783e1e3532396b03cb843da917fa51abadb3"
+    },
+    {
+      "file": "segmentation_20.npz",
+      "mask_family": "segmentation",
+      "coverage_target": 0.2,
+      "records": 250,
+      "bytes": 285046,
+      "sha256": "f20a36628093d64f6c5bcefa1e8b5ab63690b9978b476b59c1ae18f92966e53f"
+    },
+    {
+      "file": "segmentation_30.npz",
+      "mask_family": "segmentation",
+      "coverage_target": 0.3,
+      "records": 250,
+      "bytes": 361863,
+      "sha256": "97833227bf9df5f6ec2bb8f635ee55b608f4dfcf0c7dfa3c39b13756f7976cc5"
+    },
+    {
+      "file": "segmentation_40.npz",
+      "mask_family": "segmentation",
+      "coverage_target": 0.4,
+      "records": 250,
+      "bytes": 413585,
+      "sha256": "0deef18706226515dbb3c7aadd8c46597e9b2927222e5c7e5228017d18040eab"
+    },
+    {
+      "file": "segmentation_50.npz",
+      "mask_family": "segmentation",
+      "coverage_target": 0.5,
+      "records": 250,
+      "bytes": 476881,
+      "sha256": "6cd60dead91ca8bc0c045090ed107e4e613705f600eb51f14a27ae08122f7546"
+    }
+  ]
+}
